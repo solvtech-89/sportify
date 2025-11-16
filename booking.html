@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lanjutkan Booking - Sportify</title>
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+    <style>
+      :root {
+        --primary-blue: #2563eb;
+        --light-blue: #3b82f6;
+        --dark-gray: #1f2937;
+        --light-gray: #f3f4f6;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--light-gray);
+        padding-top: 80px;
+        padding-bottom: 2rem;
+      }
+
+      /* Navbar */
+      .navbar {
+        background-color: white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 1rem 0;
+        z-index: 1000;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+      }
+
+      .logo-image {
+        height: 40px;
+        width: auto;
+      }
+
+      .nav-link {
+        color: var(--dark-gray) !important;
+        font-weight: 500;
+        margin: 0 0.5rem;
+      }
+
+      .nav-link:hover {
+        color: var(--primary-blue) !important;
+      }
+
+      /* Main Content */
+      .main-content {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem 0;
+      }
+
+      .back-link {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--dark-gray);
+        text-decoration: none;
+        margin-bottom: 2rem;
+        font-size: 0.95rem;
+        transition: color 0.3s;
+      }
+
+      .back-link:hover {
+        color: var(--primary-blue);
+      }
+
+      .page-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: var(--dark-gray);
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+
+      .page-intro {
+        font-size: 1.1rem;
+        color: #6b7280;
+        margin-bottom: 3rem;
+        text-align: center;
+      }
+
+      /* Preparation Card */
+      .preparation-card {
+        background-color: white;
+        border-radius: 0.75rem;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--dark-gray);
+        margin-bottom: 1.5rem;
+      }
+
+      .checklist-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .checklist-item:last-child {
+        margin-bottom: 0;
+      }
+
+      .check-icon {
+        color: #10b981;
+        font-size: 1.5rem;
+        flex-shrink: 0;
+        margin-top: 0.25rem;
+      }
+
+      .checklist-content h4 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--dark-gray);
+        margin-bottom: 0.5rem;
+      }
+
+      .checklist-content p {
+        color: #6b7280;
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      /* Important Notice */
+      .important-notice {
+        background-color: #fef3c7;
+        border: 2px solid #fbbf24;
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .important-title {
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: var(--dark-gray);
+        margin-bottom: 1rem;
+      }
+
+      .important-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .important-list li {
+        color: var(--dark-gray);
+        margin-bottom: 0.75rem;
+        padding-left: 1.5rem;
+        position: relative;
+      }
+
+      .important-list li:last-child {
+        margin-bottom: 0;
+      }
+
+      .important-list li::before {
+        content: "•";
+        position: absolute;
+        left: 0;
+        font-size: 1.5rem;
+        color: var(--dark-gray);
+      }
+
+      /* Booking Button */
+      .booking-button-container {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .btn-booking-form {
+        background-color: var(--primary-blue);
+        color: white;
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        font-size: 1.1rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        transition: background-color 0.3s;
+        cursor: pointer;
+      }
+
+      .btn-booking-form:hover {
+        background-color: var(--light-blue);
+        color: white;
+      }
+
+      .btn-booking-form i {
+        font-size: 1.25rem;
+      }
+
+      /* Disclaimer */
+      .disclaimer {
+        text-align: center;
+        color: #9ca3af;
+        font-size: 0.9rem;
+        margin-top: 2rem;
+      }
+
+      @media (max-width: 768px) {
+        .page-title {
+          font-size: 2rem;
+        }
+
+        .page-intro {
+          font-size: 1rem;
+        }
+
+        .preparation-card {
+          padding: 1.5rem;
+        }
+
+        .btn-booking-form {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <img src="images/logo.png" alt="Sportify" class="logo-image" />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto align-items-center">
+            <li class="nav-item">
+              <a class="nav-link" href="gor-list.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="gor-saved.html">
+                <i class="bi bi-heart-fill"></i> Simpan
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="container">
+        <a href="gor-detail.html" class="back-link">
+          <i class="bi bi-chevron-left"></i> Kembali ke Beranda
+        </a>
+
+        <h1 class="page-title">Lanjutkan Booking</h1>
+        <p class="page-intro">
+          Pemesanan dilakukan melalui Google Form resmi untuk memudahkan proses
+          dan konfirmasi.
+        </p>
+
+        <!-- Preparation Card -->
+        <div class="preparation-card">
+          <h2 class="card-title">Yang Perlu Anda Siapkan</h2>
+          <div class="checklist-item">
+            <i class="bi bi-check-circle-fill check-icon"></i>
+            <div class="checklist-content">
+              <h4>Informasi Pribadi</h4>
+              <p>Nama lengkap, nomor HP, dan email</p>
+            </div>
+          </div>
+          <div class="checklist-item">
+            <i class="bi bi-check-circle-fill check-icon"></i>
+            <div class="checklist-content">
+              <h4>Detail Booking</h4>
+              <p>
+                Tanggal, waktu, jenis lapangan, dan durasi bermain
+              </p>
+            </div>
+          </div>
+          <div class="checklist-item">
+            <i class="bi bi-check-circle-fill check-icon"></i>
+            <div class="checklist-content">
+              <h4>Catatan Tambahan</h4>
+              <p>
+                Permintaan khusus atau jumlah pemain (opsional)
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Important Notice -->
+        <div class="important-notice">
+          <h3 class="important-title">PENTING !!</h3>
+          <ul class="important-list">
+            <li>Formulir akan dibuka di tab baru</li>
+            <li>Isi semua kolom yang diperlukan</li>
+            <li>
+              Konfirmasi booking akan dikirim via email/WhatsApp dalam 1×24 jam
+            </li>
+          </ul>
+        </div>
+
+        <!-- Booking Button -->
+        <div class="booking-button-container">
+          <button class="btn btn-booking-form" onclick="openBookingForm()">
+            <i class="bi bi-file-earmark-text"></i>
+            Isi Formulir Booking
+          </button>
+        </div>
+
+        <!-- Disclaimer -->
+        <p class="disclaimer">
+          Dengan melakukan booking, Anda menyetujui syarat & ketentuan yang
+          berlaku.
+        </p>
+      </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      function openBookingForm() {
+        // Ganti dengan URL Google Form yang sebenarnya
+        const formUrl =
+          "https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform";
+        window.open(formUrl, "_blank");
+      }
+    </script>
+  </body>
+</html>
+

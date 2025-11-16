@@ -1,0 +1,2139 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sportify - Temukan Lapangan Olahraga Mudah & Cepat</title>
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+    <style>
+      :root {
+        --primary-blue: #2563eb;
+        --light-blue: #3b82f6;
+        --dark-gray: #1f2937;
+        --light-gray: #f3f4f6;
+        --whatsapp-green: #25d366;
+        --email-pink: #ff6b9d;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      /* Header/Navbar */
+      .navbar {
+        background-color: white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 1rem 0;
+        z-index: 1000;
+        position: relative;
+      }
+
+      .navbar-brand {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: bold;
+        font-size: 1.5rem;
+        color: white !important;
+      }
+
+      .logo-image {
+        height: 40px;
+        width: auto;
+      }
+
+      .logo-circle {
+        width: 40px;
+        height: 40px;
+        background-color: var(--primary-blue);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+      }
+
+      .nav-link {
+        color: var(--dark-gray) !important;
+        font-weight: 500;
+        margin: 0 0.5rem;
+      }
+
+      .nav-link:hover {
+        color: var(--primary-blue) !important;
+      }
+
+      .btn-login {
+        background-color: var(--dark-gray);
+        color: white;
+        border: none;
+        padding: 0.5rem 1.5rem;
+        border-radius: 0.5rem;
+        font-weight: 500;
+      }
+
+      .btn-register {
+        background-color: var(--light-blue);
+        color: white;
+        border: none;
+        padding: 0.5rem 1.5rem;
+        border-radius: 0.5rem;
+        font-weight: 500;
+      }
+
+      /* Hero Section */
+      .hero-section {
+        position: relative;
+        min-height: 600px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: url("images/hero-image.png") center/cover;
+        color: white;
+        text-align: center;
+        padding: 4rem 2rem;
+      }
+
+      .hero-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.4); /* #00000066 = rgba(0, 0, 0, 102/255) */
+        z-index: 1;
+      }
+
+      .hero-section .container {
+        position: relative;
+        z-index: 2;
+      }
+
+      .hero-content h1 {
+        font-size: 3.5rem;
+        font-weight: bold;
+        margin-bottom: 1.5rem;
+      }
+
+      .hero-content p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.8;
+      }
+
+      .btn-book-now {
+        background-color: var(--primary-blue);
+        color: white;
+        padding: 1rem 3rem;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border: none;
+        border-radius: 0.5rem;
+        transition: transform 0.2s;
+      }
+
+      .btn-book-now:hover {
+        transform: translateY(-2px);
+        background-color: var(--light-blue);
+        color: white;
+      }
+
+      /* Section Titles */
+      .section-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: var(--dark-gray);
+        text-align: center;
+        margin-bottom: 3rem;
+        padding-top: 4rem;
+      }
+
+      /* Services Section */
+      .services-section {
+        background-color: white;
+        padding-bottom: 4rem;
+      }
+
+      .service-card {
+        border: 1px solid #e5e7eb;
+        border-radius: 0.75rem;
+        overflow: hidden;
+        transition: transform 0.3s, box-shadow 0.3s;
+        height: 100%;
+      }
+
+      .service-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .service-image {
+        width: 100%;
+        height: 200px;
+        background-color: #e5e7eb;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .service-image i {
+        font-size: 3rem;
+        color: #9ca3af;
+      }
+
+      .favorite-icon {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: #ef4444;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+
+      .service-card-body {
+        padding: 1.5rem;
+      }
+
+      .service-card-body h5 {
+        font-weight: bold;
+        color: var(--dark-gray);
+        margin-bottom: 1rem;
+      }
+
+      .service-info {
+        color: #6b7280;
+        margin-bottom: 0.5rem;
+      }
+
+      .btn-view-detail {
+        background-color: var(--primary-blue);
+        color: white;
+        border: none;
+        padding: 0.5rem 1.5rem;
+        border-radius: 0.5rem;
+        width: 100%;
+        margin-top: 1rem;
+        font-weight: 500;
+      }
+
+      .btn-view-detail:hover {
+        background-color: var(--light-blue);
+        color: white;
+      }
+
+      /* How It Works Section */
+      .how-it-works-section {
+        background-color: white;
+        padding-bottom: 4rem;
+      }
+
+      .how-it-works-subtitle {
+        text-align: center;
+        color: #6b7280;
+        margin-bottom: 3rem;
+        font-size: 1.1rem;
+      }
+
+      .step-card {
+        text-align: center;
+        padding: 2rem 1rem;
+      }
+
+      .step-number {
+        width: 80px;
+        height: 80px;
+        background-color: var(--primary-blue);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 2rem;
+        font-weight: bold;
+        margin: 0 auto 1.5rem;
+      }
+
+      .step-title {
+        font-weight: bold;
+        color: var(--dark-gray);
+        margin-bottom: 0.5rem;
+        font-size: 1.3rem;
+      }
+
+      .step-description {
+        color: #6b7280;
+        line-height: 1.6;
+      }
+
+      /* About Us Section */
+      .about-section {
+        background-color: white;
+        padding-bottom: 4rem;
+      }
+
+      .about-content {
+        max-width: 900px;
+        margin: 0 auto;
+        color: var(--dark-gray);
+        line-height: 1.8;
+        font-size: 1.1rem;
+        text-align: center;
+      }
+
+      /* Contact Section */
+      .contact-section {
+        background-color: var(--light-gray);
+        padding-bottom: 4rem;
+      }
+
+      .contact-card {
+        background-color: white;
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        transition: transform 0.3s, box-shadow 0.3s;
+        height: 100%;
+        border: 2px solid;
+        cursor: pointer;
+      }
+
+      .contact-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .contact-card.whatsapp {
+        border-color: var(--whatsapp-green);
+      }
+
+      .contact-card.email {
+        border-color: var(--email-pink);
+      }
+
+      .contact-icon {
+        font-size: 3rem;
+        flex-shrink: 0;
+      }
+
+      .contact-icon-image {
+        width: 48px;
+        height: 48px;
+        flex-shrink: 0;
+        object-fit: contain;
+      }
+
+      .contact-card.whatsapp .contact-icon {
+        color: var(--whatsapp-green);
+      }
+
+      .contact-card.email .contact-icon {
+        color: var(--email-pink);
+      }
+
+      .contact-card-content {
+        flex: 1;
+      }
+
+      .contact-card h5 {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        font-size: 1.1rem;
+      }
+
+      .contact-card.whatsapp h5 {
+        color: var(--whatsapp-green);
+      }
+
+      .contact-card.email h5 {
+        color: var(--email-pink);
+      }
+
+      .contact-info {
+        font-size: 1rem;
+        font-weight: 500;
+        margin: 0;
+      }
+
+      .contact-card.whatsapp .contact-info {
+        color: var(--whatsapp-green);
+      }
+
+      .contact-card.email .contact-info {
+        color: var(--email-pink);
+      }
+
+      /* Footer */
+      .footer {
+        background-color: var(--light-gray);
+        padding: 3rem 0 2rem;
+      }
+
+      .footer-logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .footer-tagline {
+        color: #6b7280;
+        margin-top: 0.5rem;
+      }
+
+      .footer-links {
+        list-style: none;
+        padding: 0;
+      }
+
+      .footer-links li {
+        margin-bottom: 0.5rem;
+      }
+
+      .footer-links a {
+        color: var(--dark-gray);
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer-links a:hover {
+        color: var(--primary-blue);
+      }
+
+      .footer-heading {
+        font-weight: bold;
+        color: var(--dark-gray);
+        margin-bottom: 1rem;
+      }
+
+      /* Login Modal */
+      .login-modal .modal-dialog {
+        max-width: 500px;
+        margin: 2rem auto;
+      }
+
+      .login-modal .modal-content {
+        border-radius: 1rem;
+        border: none;
+        overflow: hidden;
+        background: transparent;
+      }
+
+      .login-modal .modal-backdrop {
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+
+      .login-modal .modal-body {
+        padding: 0;
+        background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+          url("https://images.unsplash.com/photo-1622163642999-95847426349b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80")
+            center/cover;
+        background-attachment: fixed;
+        position: relative;
+        min-height: 600px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .login-form-container {
+        background-color: white;
+        border-radius: 1rem;
+        padding: 2rem;
+        position: relative;
+        width: 100%;
+        max-width: 450px;
+        margin: 2rem;
+      }
+
+      .back-to-home {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--dark-gray);
+        text-decoration: none;
+        margin-bottom: 1.5rem;
+        font-size: 0.95rem;
+        transition: color 0.3s;
+      }
+
+      .back-to-home:hover {
+        color: var(--primary-blue);
+      }
+
+      .back-to-home i {
+        font-size: 1.2rem;
+      }
+
+      .login-title {
+        color: var(--primary-blue);
+        font-weight: bold;
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .login-instruction {
+        color: var(--dark-gray);
+        margin-bottom: 2rem;
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+
+      .form-label {
+        color: var(--dark-gray);
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+      }
+
+      .form-control {
+        border: 1px solid #93c5fd;
+        border-radius: 0.5rem;
+        padding: 0.75rem 1rem;
+        font-size: 0.95rem;
+        transition: border-color 0.3s, box-shadow 0.3s;
+      }
+
+      .form-control:focus {
+        border-color: var(--primary-blue);
+        box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.25);
+      }
+
+      .password-label-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.5rem;
+      }
+
+      .forgot-password {
+        color: var(--primary-blue);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: color 0.3s;
+      }
+
+      .forgot-password:hover {
+        color: var(--light-blue);
+      }
+
+      .btn-login-modal {
+        background-color: var(--primary-blue);
+        color: white;
+        border: none;
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        width: 100%;
+        font-size: 1rem;
+        transition: background-color 0.3s;
+      }
+
+      .btn-login-modal:hover {
+        background-color: var(--light-blue);
+        color: white;
+      }
+
+      .register-link-container {
+        text-align: center;
+        margin-top: 1.5rem;
+        color: var(--dark-gray);
+        font-size: 0.95rem;
+      }
+
+      .register-link {
+        color: var(--primary-blue);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+
+      .register-link:hover {
+        color: var(--light-blue);
+      }
+
+      /* Register Modal */
+      .register-modal .modal-dialog {
+        max-width: 500px;
+        margin: 2rem auto;
+      }
+
+      .register-modal .modal-content {
+        border-radius: 1rem;
+        border: none;
+        overflow: hidden;
+        background: transparent;
+      }
+
+      .register-modal .modal-backdrop {
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+
+      .register-modal .modal-body {
+        padding: 0;
+        background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+          url("https://images.unsplash.com/photo-1622163642999-95847426349b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80")
+            center/cover;
+        background-attachment: fixed;
+        position: relative;
+        min-height: 600px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .register-form-container {
+        background-color: white;
+        border-radius: 1rem;
+        padding: 2rem;
+        position: relative;
+        width: 100%;
+        max-width: 450px;
+        margin: 2rem;
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+
+      .register-title {
+        color: var(--primary-blue);
+        font-weight: bold;
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .register-instruction {
+        color: var(--dark-gray);
+        margin-bottom: 2rem;
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+
+      .btn-register-modal {
+        background-color: var(--primary-blue);
+        color: white;
+        border: none;
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        width: 100%;
+        font-size: 1rem;
+        transition: background-color 0.3s;
+      }
+
+      .btn-register-modal:hover {
+        background-color: var(--light-blue);
+        color: white;
+      }
+
+      .login-link-container {
+        text-align: center;
+        margin-top: 1.5rem;
+        color: var(--dark-gray);
+        font-size: 0.95rem;
+      }
+
+      .login-link {
+        color: var(--primary-blue);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+
+      .login-link:hover {
+        color: var(--light-blue);
+      }
+
+      /* Login Mode Toggle */
+      .login-mode-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        padding: 0.5rem;
+        background-color: var(--light-gray);
+        border-radius: 0.5rem;
+      }
+
+      .mode-option {
+        flex: 1;
+        text-align: center;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-weight: 500;
+        color: #6b7280;
+      }
+
+      .mode-option.active {
+        background-color: white;
+        color: var(--primary-blue);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .admin-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background-color: #fef3c7;
+        color: #92400e;
+        padding: 0.25rem 0.75rem;
+        border-radius: 0.5rem;
+        font-size: 0.75rem;
+        font-weight: 500;
+        margin-left: 0.5rem;
+      }
+
+      .login-form-container.admin-mode .login-title {
+        color: #f59e0b;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+
+      .login-form-container.admin-mode .btn-login-modal {
+        background-color: #f59e0b;
+      }
+
+      .login-form-container.admin-mode .btn-login-modal:hover {
+        background-color: #d97706;
+      }
+
+      .mode-option.admin-active {
+        background-color: #fef3c7;
+        color: #92400e;
+      }
+
+      .mode-option.admin-active.active {
+        background-color: white;
+        color: #f59e0b;
+        box-shadow: 0 2px 4px rgba(245, 158, 11, 0.2);
+      }
+
+      .hidden {
+        display: none !important;
+      }
+
+      /* Profile Pages */
+      .profile-section {
+        background-color: var(--light-gray);
+        min-height: 100vh;
+        padding-top: 80px;
+        padding-bottom: 4rem;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow-y: auto;
+        z-index: 100;
+        width: 100%;
+      }
+
+      .profile-container {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .profile-header {
+        margin-bottom: 2rem;
+      }
+
+      .profile-title {
+        font-size: 2rem;
+        font-weight: bold;
+        color: var(--dark-gray);
+        margin-bottom: 0;
+      }
+
+      .profile-card {
+        background-color: white;
+        border-radius: 1rem;
+        padding: 2.5rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 2rem;
+      }
+
+      .profile-picture-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-right: 2rem;
+      }
+
+      .profile-picture {
+        width: 200px;
+        height: 250px;
+        object-fit: cover;
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+        border: 2px solid #e5e7eb;
+      }
+
+      .profile-picture-small {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 3px solid var(--primary-blue);
+      }
+
+      .profile-info {
+        flex: 1;
+      }
+
+      .profile-info-item {
+        margin-bottom: 1.5rem;
+      }
+
+      .profile-info-label {
+        color: #6b7280;
+        font-size: 0.95rem;
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+
+      .profile-info-value {
+        color: var(--dark-gray);
+        font-weight: bold;
+        font-size: 1.1rem;
+      }
+
+      .btn-upload-photo {
+        background-color: var(--primary-blue);
+        color: white;
+        border: none;
+        padding: 0.5rem 1.5rem;
+        border-radius: 0.5rem;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        width: 100%;
+        transition: background-color 0.3s;
+      }
+
+      .btn-upload-photo:hover {
+        background-color: var(--light-blue);
+        color: white;
+      }
+
+      .btn-delete-photo {
+        background-color: #ef4444;
+        color: white;
+        border: none;
+        padding: 0.5rem 1.5rem;
+        border-radius: 0.5rem;
+        font-weight: 500;
+        width: 100%;
+        transition: background-color 0.3s;
+      }
+
+      .btn-delete-photo:hover {
+        background-color: #dc2626;
+        color: white;
+      }
+
+      .btn-save-data {
+        background-color: var(--primary-blue);
+        color: white;
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        font-size: 1.1rem;
+        width: 100%;
+        transition: background-color 0.3s;
+      }
+
+      .btn-save-data:hover {
+        background-color: var(--light-blue);
+        color: white;
+      }
+
+      .btn-ubah-data {
+        background-color: var(--primary-blue);
+        color: white;
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        font-size: 1.1rem;
+        width: 100%;
+        transition: background-color 0.3s;
+      }
+
+      .btn-ubah-data:hover {
+        background-color: var(--light-blue);
+        color: white;
+      }
+
+      .profile-form-row {
+        display: flex;
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .profile-form-left {
+        flex: 0 0 250px;
+      }
+
+      .profile-form-right {
+        flex: 1;
+      }
+
+      .profile-dropdown {
+        position: relative;
+        display: inline-block;
+      }
+
+      .profile-dropdown-toggle {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        transition: background-color 0.3s;
+      }
+
+      .profile-dropdown-toggle:hover {
+        background-color: #f3f4f6;
+      }
+
+      .profile-dropdown-menu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: white;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        min-width: 200px;
+        margin-top: 0.5rem;
+        padding: 0.5rem 0;
+        display: none;
+        z-index: 1000;
+      }
+
+      .profile-dropdown-menu.show {
+        display: block;
+      }
+
+      .profile-dropdown-item {
+        padding: 0.75rem 1.5rem;
+        color: var(--dark-gray);
+        text-decoration: none;
+        display: block;
+        transition: background-color 0.3s;
+      }
+
+      .profile-dropdown-item:hover {
+        background-color: var(--light-gray);
+        color: var(--primary-blue);
+      }
+
+      .hidden {
+        display: none !important;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .hero-content h1 {
+          font-size: 2rem;
+        }
+
+        .hero-content p {
+          font-size: 1rem;
+        }
+
+        .section-title {
+          font-size: 2rem;
+        }
+
+        .navbar-nav {
+          text-align: center;
+          margin-top: 1rem;
+        }
+
+        .btn-login,
+        .btn-register {
+          width: 100%;
+          margin: 0.25rem 0;
+        }
+
+        .login-modal .modal-dialog {
+          margin: 0.5rem;
+        }
+
+        .login-modal .modal-body {
+          min-height: 100vh;
+          padding: 1rem 0;
+        }
+
+        .login-form-container {
+          padding: 1.5rem;
+          margin: 1rem;
+          max-width: 100%;
+        }
+
+        .login-title {
+          font-size: 1.5rem;
+        }
+
+        .register-modal .modal-dialog {
+          margin: 0.5rem;
+        }
+
+        .register-modal .modal-body {
+          min-height: 100vh;
+          padding: 1rem 0;
+        }
+
+        .register-form-container {
+          padding: 1.5rem;
+          margin: 1rem;
+          max-width: 100%;
+        }
+
+        .register-title {
+          font-size: 1.5rem;
+        }
+
+        .profile-form-row {
+          flex-direction: column;
+        }
+
+        .profile-form-left {
+          flex: 1;
+        }
+
+        .profile-picture {
+          width: 150px;
+          height: 200px;
+        }
+
+        .contact-card {
+          flex-direction: column;
+          text-align: center;
+          gap: 1rem;
+        }
+
+        .contact-icon {
+          margin-bottom: 0;
+        }
+
+        .contact-card-content {
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header/Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <img src="images/logo.png" alt="Sportify" class="logo-image" />
+          <!-- <span style="color: var(--primary-blue)">Sportify</span> -->
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto align-items-center">
+            <li class="nav-item">
+              <a class="nav-link" href="#beranda">Beranda</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#layanan">Layanan</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#tentang">Tentang Kami</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#kontak">Kontak</a>
+            </li>
+            <li class="nav-item ms-2" id="authButtons">
+              <button
+                class="btn btn-login"
+                data-bs-toggle="modal"
+                data-bs-target="#loginModal"
+              >
+                Masuk
+              </button>
+            </li>
+            <li class="nav-item ms-2" id="registerButton">
+              <button
+                class="btn btn-register"
+                data-bs-toggle="modal"
+                data-bs-target="#registerModal"
+              >
+                Daftar
+              </button>
+            </li>
+            <li class="nav-item ms-2 hidden" id="profileDropdownContainer">
+              <div class="profile-dropdown">
+                <div class="profile-dropdown-toggle" id="profileDropdownToggle">
+                  <img
+                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
+                    alt="Profile"
+                    class="profile-picture-small"
+                    style="
+                      width: 40px;
+                      height: 40px;
+                      border-radius: 50%;
+                      object-fit: cover;
+                    "
+                  />
+                  <i class="bi bi-chevron-down"></i>
+                </div>
+                <div class="profile-dropdown-menu" id="profileDropdownMenu">
+                  <a
+                    href="#"
+                    class="profile-dropdown-item"
+                    id="viewProfileLink"
+                  >
+                    <i class="bi bi-person"></i> Profil Saya
+                  </a>
+                  <a href="#" class="profile-dropdown-item" id="logoutLink">
+                    <i class="bi bi-box-arrow-right"></i> Keluar
+                  </a>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="beranda" class="hero-section">
+      <div class="container">
+        <div class="hero-content">
+          <h1>Temukan Lapangan Olahraga Mudah & Cepat</h1>
+          <p>
+            Dengan teknologi berbasis real-time, Sportify memberikan solusi yang
+            mempermudah penyewaan lapangan olahraga, sekaligus mendukung mitra
+            GOR dalam pengelolaan operasional secara optimal.
+          </p>
+          <button class="btn btn-book-now">Pesan Sekarang</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="layanan" class="services-section">
+      <div class="container">
+        <h2 class="section-title">Layanan Kami</h2>
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-3">
+            <div class="service-card">
+              <div class="service-image">
+                <i class="bi bi-image"></i>
+                <i class="bi bi-heart-fill favorite-icon"></i>
+              </div>
+              <div class="service-card-body">
+                <h5>GOR IFI SUKABIRUS</h5>
+                <div class="service-info">
+                  <strong>Lokasi :</strong> <span>-</span>
+                </div>
+                <div class="service-info">
+                  <strong>Harga :</strong> <span>-</span>
+                </div>
+                <button class="btn btn-view-detail">Lihat Detail</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="service-card">
+              <div class="service-image">
+                <i class="bi bi-image"></i>
+                <i class="bi bi-heart-fill favorite-icon"></i>
+              </div>
+              <div class="service-card-body">
+                <h5>GOR IFI SUKABIRUS</h5>
+                <div class="service-info">
+                  <strong>Lokasi :</strong> <span>-</span>
+                </div>
+                <div class="service-info">
+                  <strong>Harga :</strong> <span>-</span>
+                </div>
+                <button class="btn btn-view-detail">Lihat Detail</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="service-card">
+              <div class="service-image">
+                <i class="bi bi-image"></i>
+                <i class="bi bi-heart-fill favorite-icon"></i>
+              </div>
+              <div class="service-card-body">
+                <h5>GOR IFI SUKABIRUS</h5>
+                <div class="service-info">
+                  <strong>Lokasi :</strong> <span>-</span>
+                </div>
+                <div class="service-info">
+                  <strong>Harga :</strong> <span>-</span>
+                </div>
+                <button class="btn btn-view-detail">Lihat Detail</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="service-card">
+              <div class="service-image">
+                <i class="bi bi-image"></i>
+                <i class="bi bi-heart-fill favorite-icon"></i>
+              </div>
+              <div class="service-card-body">
+                <h5>GOR IFI SUKABIRUS</h5>
+                <div class="service-info">
+                  <strong>Lokasi :</strong> <span>-</span>
+                </div>
+                <div class="service-info">
+                  <strong>Harga :</strong> <span>-</span>
+                </div>
+                <button class="btn btn-view-detail">Lihat Detail</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works-section">
+      <div class="container">
+        <h2 class="section-title">Bagaimana Cara Bekerja?</h2>
+        <p class="how-it-works-subtitle">
+          Langkah melakukan pemesanan gor di Sportify
+        </p>
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-3">
+            <div class="step-card">
+              <div class="step-number">1</div>
+              <h4 class="step-title">CARI</h4>
+              <p class="step-description">
+                Cari GOR atau lapangan olahraga sesuai lokasi dan jenis olahraga
+                yang kamu inginkan
+              </p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="step-card">
+              <div class="step-number">2</div>
+              <h4 class="step-title">PESAN</h4>
+              <p class="step-description">
+                Pilih jadwal yang tersedia secara real-time dan lakukan
+                pemesanan dengan mudah.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="step-card">
+              <div class="step-number">3</div>
+              <h4 class="step-title">BAYAR</h4>
+              <p class="step-description">
+                Bayar aman dan cepat melalui QRIS, transfer bank, atau dompet
+                digital.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="step-card">
+              <div class="step-number">4</div>
+              <h4 class="step-title">MAIN</h4>
+              <p class="step-description">
+                Datang ke lapangan pada waktu yang sudah kamu pesan dan nikmati
+                olahraga tanpa ribet.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="tentang" class="about-section">
+      <div class="container">
+        <h2 class="section-title">Tentang Kami</h2>
+        <div class="about-content">
+          <p>
+            Sportify hadir sebagai solusi digital yang menjembatani kebutuhan
+            antara penyedia fasilitas olahraga dan para penggunanya di Bandung
+            dan sekitarnya. Kami mengumpulkan serta menampilkan berbagai pilihan
+            tempat olahraga yang telah diverifikasi oleh tim kami, memastikan
+            seluruh informasi akurat — mulai dari foto, jenis olahraga,
+            fasilitas, hingga kontak pengelola.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="kontak" class="contact-section">
+      <div class="container">
+        <h2 class="section-title">Hubungi Kami</h2>
+        <div class="row g-4 justify-content-center">
+          <div class="col-md-6 col-lg-5">
+            <div class="contact-card whatsapp">
+              <img
+                src="images/social-icons.svg"
+                alt="WhatsApp"
+                class="contact-icon-image"
+              />
+              <div class="contact-card-content">
+                <h5>Chat WhatsApps</h5>
+                <p class="contact-info">+628881232123</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-5">
+            <div class="contact-card email">
+              <img
+                src="images/email-icon.svg"
+                alt="Email"
+                class="contact-icon-image"
+              />
+              <div class="contact-card-content">
+                <h5>Email Kami</h5>
+                <p class="contact-info">sportifyservice@gmail.com</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="footer-logo">
+              <span style="color: #1d83bb; font-weight: bold; font-size: 1.5rem"
+                >Sportify</span
+              >
+            </div>
+            <p class="footer-tagline">Solusi mencari gor olahraga terpercaya</p>
+          </div>
+          <div class="col-md-6">
+            <h5 class="footer-heading" style="color: #1d83bb">Tautan cepat</h5>
+            <ul class="footer-links">
+              <li><a href="#beranda">Beranda</a></li>
+              <li><a href="#layanan">Layanan</a></li>
+              <li><a href="#tentang">Tentang Kami</a></li>
+              <li><a href="#kontak">Kontak</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Profile Detail Page -->
+    <section id="profileDetailPage" class="profile-section hidden">
+      <div class="container">
+        <div class="profile-container">
+          <div class="profile-header">
+            <h2 class="profile-title">Detail Profile</h2>
+          </div>
+          <div class="profile-card">
+            <div class="d-flex flex-column flex-md-row">
+              <div class="profile-picture-container">
+                <img
+                  src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                  alt="Profile Picture"
+                  class="profile-picture"
+                  id="profileDetailPicture"
+                />
+              </div>
+              <div class="profile-info">
+                <div class="profile-info-item">
+                  <span class="profile-info-label">Nama Lengkap</span>
+                  <div class="profile-info-value" id="profileDetailName">
+                    Diana Putri Nabila
+                  </div>
+                </div>
+                <div class="profile-info-item">
+                  <span class="profile-info-label">Email</span>
+                  <div class="profile-info-value" id="profileDetailEmail">
+                    dianapn@gmail.com
+                  </div>
+                </div>
+                <div class="profile-info-item">
+                  <span class="profile-info-label">No Telepon</span>
+                  <div class="profile-info-value" id="profileDetailPhone">
+                    089999999999
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-ubah-data" id="btnUbahData">Ubah Data</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Profile Edit Page -->
+    <section id="profileEditPage" class="profile-section hidden">
+      <div class="container">
+        <div class="profile-container">
+          <div class="profile-header">
+            <a href="#beranda" class="back-to-home" id="backToHomeFromEdit">
+              <i class="bi bi-chevron-left"></i>
+              Kembali ke Beranda
+            </a>
+          </div>
+          <div class="profile-card">
+            <div class="profile-form-row">
+              <div class="profile-form-left">
+                <div class="profile-picture-container">
+                  <img
+                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                    alt="Profile Picture"
+                    class="profile-picture"
+                    id="profileEditPicture"
+                  />
+                  <button class="btn btn-upload-photo" id="btnUploadPhoto">
+                    Upload Foto
+                  </button>
+                  <button class="btn btn-delete-photo" id="btnDeletePhoto">
+                    Hapus Foto
+                  </button>
+                </div>
+              </div>
+              <div class="profile-form-right">
+                <form id="profileEditForm">
+                  <div class="mb-3">
+                    <label for="editFullName" class="form-label"
+                      >Nama Lengkap</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="editFullName"
+                      value="Diana Putri Nabila"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="editEmail" class="form-label">Email</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="editEmail"
+                      value="dianapn@gmail.com"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="editPhone" class="form-label">No Telepon</label>
+                    <input
+                      type="tel"
+                      class="form-control"
+                      id="editPhone"
+                      value="08999999999"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="editPassword" class="form-label"
+                      >Password</label
+                    >
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="editPassword"
+                      placeholder="******"
+                    />
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-save-data" id="btnSaveData">
+            Simpan Data
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Login Modal -->
+    <div
+      class="modal fade login-modal"
+      id="loginModal"
+      tabindex="-1"
+      aria-labelledby="loginModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="login-form-container" id="loginFormContainer">
+              <a href="#beranda" class="back-to-home" data-bs-dismiss="modal">
+                <i class="bi bi-chevron-left"></i>
+                Kembali ke Beranda
+              </a>
+
+              <!-- Login Mode Toggle -->
+              <div class="login-mode-toggle">
+                <div class="mode-option active" data-mode="user" id="userMode">
+                  <i class="bi bi-person"></i> User
+                </div>
+                <div class="mode-option" data-mode="admin" id="adminMode">
+                  <i class="bi bi-shield-lock"></i> Admin
+                </div>
+              </div>
+
+              <h2 class="login-title" id="loginTitle">
+                Selamat Datang di Sportify
+              </h2>
+              <p class="login-instruction" id="loginInstruction">
+                Silakan masukkan email dan kata sandi untuk mulai menggunakan
+                layanan Sportify
+              </p>
+
+              <form id="loginForm">
+                <div class="mb-3">
+                  <label for="email" class="form-label" id="emailLabel">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    placeholder="Masukan email"
+                    required
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <div class="password-label-container">
+                    <label for="password" class="form-label">Kata Sandi</label>
+                    <a href="#" class="forgot-password" id="forgotPasswordLink">
+                      Lupa Kata Sandi?
+                    </a>
+                  </div>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    placeholder="Masukan kata sandi"
+                    required
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  class="btn btn-login-modal"
+                  id="loginButton"
+                >
+                  Masuk
+                </button>
+
+                <div class="register-link-container" id="registerLinkContainer">
+                  Belum Punya Akun?
+                  <a href="#" class="register-link">Daftar</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div
+      class="modal fade register-modal"
+      id="registerModal"
+      tabindex="-1"
+      aria-labelledby="registerModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="register-form-container">
+              <a href="#beranda" class="back-to-home" data-bs-dismiss="modal">
+                <i class="bi bi-chevron-left"></i>
+                Kembali ke Beranda
+              </a>
+
+              <h2 class="register-title">Daftar Akun Sportify</h2>
+              <p class="register-instruction">
+                Silahkan isi data diri Anda untuk masuk ke Sportify dan mulai
+                mengelola gudang atau menyimpan daftar favorit.
+              </p>
+
+              <form id="registerForm">
+                <div class="mb-3">
+                  <label for="fullName" class="form-label">Nama Lengkap</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="fullName"
+                    placeholder="Masukan nama lengkap"
+                    required
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label for="registerEmail" class="form-label">Email</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="registerEmail"
+                    placeholder="Masukan email"
+                    required
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label for="phoneNumber" class="form-label">No Telepon</label>
+                  <input
+                    type="tel"
+                    class="form-control"
+                    id="phoneNumber"
+                    placeholder="Masukan nomor telepon"
+                    required
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label for="registerPassword" class="form-label"
+                    >Kata Sandi</label
+                  >
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="registerPassword"
+                    placeholder="Masukan Kata Sandi"
+                    required
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label for="confirmPassword" class="form-label"
+                    >Konfirmasi Kata Sandi</label
+                  >
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="confirmPassword"
+                    placeholder="Masukan Konfirmasi Kata Sandi"
+                    required
+                  />
+                </div>
+
+                <button type="submit" class="btn btn-register-modal">
+                  Daftar
+                </button>
+
+                <div class="login-link-container">
+                  Sudah punya akun?
+                  <a
+                    href="#"
+                    class="login-link"
+                    data-bs-dismiss="modal"
+                    data-bs-toggle="modal"
+                    data-bs-target="#loginModal"
+                    >Masuk</a
+                  >
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Handle login form submission
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          // Add your login logic here
+          alert("Login functionality akan diimplementasikan");
+        });
+
+      // Handle register form submission
+      document
+        .getElementById("registerForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          // Get form values
+          const password = document.getElementById("registerPassword").value;
+          const confirmPassword =
+            document.getElementById("confirmPassword").value;
+
+          // Validate password match
+          if (password !== confirmPassword) {
+            alert("Kata sandi dan konfirmasi kata sandi tidak cocok!");
+            return;
+          }
+
+          // Add your registration logic here
+          alert("Registrasi functionality akan diimplementasikan");
+        });
+
+      // Handle link from login modal to register modal
+      document.addEventListener("DOMContentLoaded", function () {
+        const registerLink = document.querySelector(".register-link");
+        if (registerLink) {
+          registerLink.addEventListener("click", function (e) {
+            e.preventDefault();
+            const loginModalElement = document.getElementById("loginModal");
+            const loginModal = bootstrap.Modal.getInstance(loginModalElement);
+            if (loginModal) {
+              loginModal.hide();
+            }
+            // Show register modal after login modal is hidden
+            setTimeout(function () {
+              const registerModal = new bootstrap.Modal(
+                document.getElementById("registerModal")
+              );
+              registerModal.show();
+            }, 300);
+          });
+        }
+
+        // Profile dropdown toggle
+        const profileDropdownToggle = document.getElementById(
+          "profileDropdownToggle"
+        );
+        const profileDropdownMenu = document.getElementById(
+          "profileDropdownMenu"
+        );
+
+        if (profileDropdownToggle && profileDropdownMenu) {
+          // Click on profile picture directly shows profile page
+          const profilePicture = profileDropdownToggle.querySelector("img");
+          if (profilePicture) {
+            profilePicture.addEventListener("click", function (e) {
+              e.stopPropagation();
+              showProfileDetailPage();
+              profileDropdownMenu.classList.remove("show");
+            });
+          }
+
+          // Click on dropdown arrow shows menu
+          const dropdownArrow = profileDropdownToggle.querySelector("i");
+          if (dropdownArrow) {
+            dropdownArrow.addEventListener("click", function (e) {
+              e.stopPropagation();
+              profileDropdownMenu.classList.toggle("show");
+            });
+          }
+
+          // Click on toggle container (but not picture) shows menu
+          profileDropdownToggle.addEventListener("click", function (e) {
+            if (
+              e.target === profileDropdownToggle ||
+              e.target === dropdownArrow
+            ) {
+              e.stopPropagation();
+              profileDropdownMenu.classList.toggle("show");
+            }
+          });
+
+          // Close dropdown when clicking outside
+          document.addEventListener("click", function (e) {
+            if (
+              !profileDropdownToggle.contains(e.target) &&
+              !profileDropdownMenu.contains(e.target)
+            ) {
+              profileDropdownMenu.classList.remove("show");
+            }
+          });
+        }
+
+        // Show profile detail page
+        const viewProfileLink = document.getElementById("viewProfileLink");
+        if (viewProfileLink) {
+          viewProfileLink.addEventListener("click", function (e) {
+            e.preventDefault();
+            showProfileDetailPage();
+            profileDropdownMenu.classList.remove("show");
+          });
+        }
+
+        // Show profile edit page
+        const btnUbahData = document.getElementById("btnUbahData");
+        if (btnUbahData) {
+          btnUbahData.addEventListener("click", function (e) {
+            e.preventDefault();
+            showProfileEditPage();
+          });
+        }
+
+        // Save profile data
+        const btnSaveData = document.getElementById("btnSaveData");
+        if (btnSaveData) {
+          btnSaveData.addEventListener("click", function (e) {
+            e.preventDefault();
+            saveProfileData();
+          });
+        }
+
+        // Upload photo
+        const btnUploadPhoto = document.getElementById("btnUploadPhoto");
+        if (btnUploadPhoto) {
+          btnUploadPhoto.addEventListener("click", function (e) {
+            e.preventDefault();
+            // Create file input
+            const input = document.createElement("input");
+            input.type = "file";
+            input.accept = "image/*";
+            input.onchange = function (event) {
+              const file = event.target.files[0];
+              if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                  const imageUrl = e.target.result;
+                  // Update profile pictures
+                  const profileEditPicture =
+                    document.getElementById("profileEditPicture");
+                  const profileDetailPicture = document.getElementById(
+                    "profileDetailPicture"
+                  );
+                  const profileDropdownPicture = document.querySelector(
+                    "#profileDropdownContainer .profile-picture-small"
+                  );
+
+                  if (profileEditPicture) {
+                    profileEditPicture.src = imageUrl;
+                  }
+                  if (profileDetailPicture) {
+                    profileDetailPicture.src = imageUrl;
+                  }
+                  if (profileDropdownPicture) {
+                    profileDropdownPicture.src = imageUrl;
+                  }
+                };
+                reader.readAsDataURL(file);
+              }
+            };
+            input.click();
+          });
+        }
+
+        // Delete photo
+        const btnDeletePhoto = document.getElementById("btnDeletePhoto");
+        if (btnDeletePhoto) {
+          btnDeletePhoto.addEventListener("click", function (e) {
+            e.preventDefault();
+            if (confirm("Apakah Anda yakin ingin menghapus foto profil?")) {
+              const defaultImageUrl =
+                "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80";
+              const profileEditPicture =
+                document.getElementById("profileEditPicture");
+              const profileDetailPicture = document.getElementById(
+                "profileDetailPicture"
+              );
+              const profileDropdownPicture = document.querySelector(
+                "#profileDropdownContainer .profile-picture-small"
+              );
+
+              if (profileEditPicture) {
+                profileEditPicture.src = defaultImageUrl;
+              }
+              if (profileDetailPicture) {
+                profileDetailPicture.src = defaultImageUrl;
+              }
+              if (profileDropdownPicture) {
+                profileDropdownPicture.src = defaultImageUrl;
+              }
+            }
+          });
+        }
+
+        // Back to home from edit
+        const backToHomeFromEdit =
+          document.getElementById("backToHomeFromEdit");
+        if (backToHomeFromEdit) {
+          backToHomeFromEdit.addEventListener("click", function (e) {
+            e.preventDefault();
+            showHomePage();
+          });
+        }
+
+        // Logout
+        const logoutLink = document.getElementById("logoutLink");
+        if (logoutLink) {
+          logoutLink.addEventListener("click", function (e) {
+            e.preventDefault();
+            logout();
+            profileDropdownMenu.classList.remove("show");
+          });
+        }
+
+        // Login Mode Toggle
+        let currentLoginMode = "user";
+        const userModeBtn = document.getElementById("userMode");
+        const adminModeBtn = document.getElementById("adminMode");
+        const loginFormContainer =
+          document.getElementById("loginFormContainer");
+        const loginTitle = document.getElementById("loginTitle");
+        const loginInstruction = document.getElementById("loginInstruction");
+        const emailLabel = document.getElementById("emailLabel");
+        const forgotPasswordLink =
+          document.getElementById("forgotPasswordLink");
+        const registerLinkContainer = document.getElementById(
+          "registerLinkContainer"
+        );
+        const loginButton = document.getElementById("loginButton");
+
+        function switchLoginMode(mode) {
+          currentLoginMode = mode;
+
+          // Update toggle buttons
+          if (mode === "user") {
+            userModeBtn.classList.add("active");
+            adminModeBtn.classList.remove("active", "admin-active");
+            loginFormContainer.classList.remove("admin-mode");
+
+            // Update content for user mode
+            loginTitle.innerHTML = "Selamat Datang di Sportify";
+            loginInstruction.textContent =
+              "Silakan masukkan email dan kata sandi untuk mulai menggunakan layanan Sportify";
+            emailLabel.textContent = "Email";
+            document.getElementById("email").placeholder = "Masukan email";
+            forgotPasswordLink.style.display = "";
+            registerLinkContainer.style.display = "";
+            loginButton.textContent = "Masuk";
+          } else {
+            userModeBtn.classList.remove("active");
+            adminModeBtn.classList.add("active", "admin-active");
+            loginFormContainer.classList.add("admin-mode");
+
+            // Update content for admin mode
+            loginTitle.innerHTML =
+              '<i class="bi bi-shield-check"></i> Login Admin<span class="admin-badge"><i class="bi bi-shield-lock-fill"></i> Admin Access</span>';
+            loginInstruction.textContent =
+              "Silakan masukkan kredensial admin untuk mengakses dashboard";
+            emailLabel.textContent = "Email Admin";
+            document.getElementById("email").placeholder =
+              "Masukan email admin";
+            forgotPasswordLink.style.display = "none";
+            registerLinkContainer.style.display = "none";
+            loginButton.textContent = "Masuk sebagai Admin";
+          }
+        }
+
+        if (userModeBtn && adminModeBtn) {
+          userModeBtn.addEventListener("click", function () {
+            switchLoginMode("user");
+          });
+
+          adminModeBtn.addEventListener("click", function () {
+            switchLoginMode("admin");
+          });
+        }
+
+        // Simulate login (for testing - remove in production)
+        const loginForm = document.getElementById("loginForm");
+        if (loginForm) {
+          loginForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            if (currentLoginMode === "admin") {
+              // Redirect to admin dashboard
+              window.location.href = "admin-dashboard.html";
+            } else {
+              // Redirect to user gor-list page
+              window.location.href = "gor-list.html";
+            }
+          });
+        }
+
+        // Handle navbar links to show home page
+        const navLinks = document.querySelectorAll(".nav-link");
+        navLinks.forEach((link) => {
+          link.addEventListener("click", function (e) {
+            const href = this.getAttribute("href");
+            if (href && href.startsWith("#")) {
+              showHomePage();
+            }
+          });
+        });
+
+        // Handle navbar brand click
+        const navbarBrand = document.querySelector(".navbar-brand");
+        if (navbarBrand) {
+          navbarBrand.addEventListener("click", function (e) {
+            e.preventDefault();
+            showHomePage();
+          });
+        }
+      });
+
+      // Function to show profile dropdown
+      function showProfileDropdown() {
+        const authButtons = document.getElementById("authButtons");
+        const registerButton = document.getElementById("registerButton");
+        const profileDropdownContainer = document.getElementById(
+          "profileDropdownContainer"
+        );
+
+        if (authButtons) authButtons.classList.add("hidden");
+        if (registerButton) registerButton.classList.add("hidden");
+        if (profileDropdownContainer)
+          profileDropdownContainer.classList.remove("hidden");
+      }
+
+      // Function to hide profile dropdown
+      function hideProfileDropdown() {
+        const authButtons = document.getElementById("authButtons");
+        const registerButton = document.getElementById("registerButton");
+        const profileDropdownContainer = document.getElementById(
+          "profileDropdownContainer"
+        );
+
+        if (authButtons) authButtons.classList.remove("hidden");
+        if (registerButton) registerButton.classList.remove("hidden");
+        if (profileDropdownContainer)
+          profileDropdownContainer.classList.add("hidden");
+      }
+
+      // Function to show profile detail page
+      function showProfileDetailPage() {
+        // Hide all pages
+        hideAllPages();
+
+        // Hide main content
+        hideMainContent();
+
+        // Show profile detail page
+        const profileDetailPage = document.getElementById("profileDetailPage");
+        if (profileDetailPage) {
+          profileDetailPage.classList.remove("hidden");
+          window.scrollTo(0, 0);
+        }
+      }
+
+      // Function to show profile edit page
+      function showProfileEditPage() {
+        // Hide all pages
+        hideAllPages();
+
+        // Hide main content
+        hideMainContent();
+
+        // Show profile edit page
+        const profileEditPage = document.getElementById("profileEditPage");
+        if (profileEditPage) {
+          profileEditPage.classList.remove("hidden");
+          window.scrollTo(0, 0);
+        }
+      }
+
+      // Function to show home page
+      function showHomePage() {
+        // Hide all pages
+        hideAllPages();
+
+        // Show main content
+        showMainContent();
+
+        // Scroll to top
+        window.scrollTo(0, 0);
+      }
+
+      // Function to hide all pages
+      function hideAllPages() {
+        const profileDetailPage = document.getElementById("profileDetailPage");
+        const profileEditPage = document.getElementById("profileEditPage");
+
+        if (profileDetailPage) profileDetailPage.classList.add("hidden");
+        if (profileEditPage) profileEditPage.classList.add("hidden");
+      }
+
+      // Function to hide main content
+      function hideMainContent() {
+        const heroSection = document.getElementById("beranda");
+        const servicesSection = document.getElementById("layanan");
+        const aboutSection = document.getElementById("tentang");
+        const contactSection = document.getElementById("kontak");
+        const footer = document.querySelector(".footer");
+        const howItWorksSection = document.querySelector(
+          ".how-it-works-section"
+        );
+
+        if (heroSection) heroSection.style.display = "none";
+        if (servicesSection) servicesSection.style.display = "none";
+        if (aboutSection) aboutSection.style.display = "none";
+        if (contactSection) contactSection.style.display = "none";
+        if (footer) footer.style.display = "none";
+        if (howItWorksSection) howItWorksSection.style.display = "none";
+      }
+
+      // Function to show main content
+      function showMainContent() {
+        const heroSection = document.getElementById("beranda");
+        const servicesSection = document.getElementById("layanan");
+        const aboutSection = document.getElementById("tentang");
+        const contactSection = document.getElementById("kontak");
+        const footer = document.querySelector(".footer");
+        const howItWorksSection = document.querySelector(
+          ".how-it-works-section"
+        );
+
+        if (heroSection) heroSection.style.display = "";
+        if (servicesSection) servicesSection.style.display = "";
+        if (aboutSection) aboutSection.style.display = "";
+        if (contactSection) contactSection.style.display = "";
+        if (footer) footer.style.display = "";
+        if (howItWorksSection) howItWorksSection.style.display = "";
+      }
+
+      // Function to save profile data
+      function saveProfileData() {
+        const editFullName = document.getElementById("editFullName").value;
+        const editEmail = document.getElementById("editEmail").value;
+        const editPhone = document.getElementById("editPhone").value;
+
+        // Update profile detail page
+        document.getElementById("profileDetailName").textContent = editFullName;
+        document.getElementById("profileDetailEmail").textContent = editEmail;
+        document.getElementById("profileDetailPhone").textContent = editPhone;
+
+        // Show success message
+        alert("Data berhasil disimpan!");
+
+        // Go back to profile detail page
+        showProfileDetailPage();
+      }
+
+      // Function to logout
+      function logout() {
+        hideProfileDropdown();
+        showHomePage();
+      }
+    </script>
+  </body>
+</html>

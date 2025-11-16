@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detail GOR - Sportify</title>
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+    <style>
+      :root {
+        --primary-blue: #2563eb;
+        --light-blue: #3b82f6;
+        --dark-gray: #1f2937;
+        --light-gray: #f3f4f6;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--light-gray);
+        padding-top: 80px;
+      }
+
+      /* Navbar */
+      .navbar {
+        background-color: white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 1rem 0;
+        z-index: 1000;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+      }
+
+      .logo-image {
+        height: 40px;
+        width: auto;
+      }
+
+      .nav-link {
+        color: var(--dark-gray) !important;
+        font-weight: 500;
+        margin: 0 0.5rem;
+      }
+
+      .nav-link:hover {
+        color: var(--primary-blue) !important;
+      }
+
+      /* Main Content */
+      .main-content {
+        padding: 2rem 0;
+      }
+
+      .back-link {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--dark-gray);
+        text-decoration: none;
+        margin-bottom: 2rem;
+        font-size: 0.95rem;
+        transition: color 0.3s;
+      }
+
+      .back-link:hover {
+        color: var(--primary-blue);
+      }
+
+      /* Image Carousel */
+      .image-carousel {
+        width: 100%;
+        height: 400px;
+        background-color: #e0f2fe;
+        border-radius: 0.75rem;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 2rem;
+        overflow: hidden;
+      }
+
+      .carousel-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: none;
+      }
+
+      .carousel-image.active {
+        display: block;
+      }
+
+      .carousel-placeholder {
+        color: #6b7280;
+        font-size: 1.5rem;
+        font-weight: 500;
+      }
+
+      .carousel-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: white;
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        transition: background-color 0.3s;
+        z-index: 10;
+      }
+
+      .carousel-nav:hover {
+        background-color: var(--light-gray);
+      }
+
+      .carousel-nav.prev {
+        left: 1rem;
+      }
+
+      .carousel-nav.next {
+        right: 1rem;
+      }
+
+      /* Venue Info */
+      .venue-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+      }
+
+      .venue-name {
+        font-size: 2rem;
+        font-weight: bold;
+        color: var(--dark-gray);
+        margin: 0;
+      }
+
+      .favorite-btn {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: #ef4444;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+
+      .favorite-btn:hover {
+        transform: scale(1.1);
+      }
+
+      .venue-info {
+        background-color: white;
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .info-item {
+        margin-bottom: 1rem;
+        color: var(--dark-gray);
+      }
+
+      .info-item:last-child {
+        margin-bottom: 0;
+      }
+
+      .info-label {
+        font-weight: 600;
+        margin-right: 0.5rem;
+      }
+
+      /* Description */
+      .description-section {
+        background-color: white;
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .section-heading {
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: var(--dark-gray);
+        margin-bottom: 1rem;
+      }
+
+      .description-text {
+        color: #6b7280;
+        line-height: 1.8;
+      }
+
+      /* Facilities */
+      .facilities-section {
+        background-color: white;
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .facilities-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .facility-badge {
+        background-color: var(--primary-blue);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        font-weight: 500;
+        border: none;
+      }
+
+      /* Booking Button */
+      .booking-section {
+        position: sticky;
+        bottom: 0;
+        background-color: white;
+        padding: 1.5rem 0;
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+        margin-top: 2rem;
+      }
+
+      .btn-booking {
+        background-color: var(--primary-blue);
+        color: white;
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        font-size: 1.1rem;
+        width: 100%;
+        transition: background-color 0.3s;
+      }
+
+      .btn-booking:hover {
+        background-color: var(--light-blue);
+        color: white;
+      }
+
+      @media (max-width: 768px) {
+        .image-carousel {
+          height: 300px;
+        }
+
+        .venue-name {
+          font-size: 1.5rem;
+        }
+
+        .facilities-list {
+          flex-direction: column;
+        }
+
+        .facility-badge {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <img src="images/logo.png" alt="Sportify" class="logo-image" />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto align-items-center">
+            <li class="nav-item">
+              <a class="nav-link" href="gor-list.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="gor-saved.html">
+                <i class="bi bi-heart-fill"></i> Simpan
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="container">
+        <a href="gor-list.html" class="back-link">
+          <i class="bi bi-chevron-left"></i> Kembali ke Beranda
+        </a>
+
+        <!-- Image Carousel -->
+        <div class="image-carousel" id="imageCarousel">
+          <div class="carousel-placeholder" id="carouselPlaceholder">
+            Gambar 1
+          </div>
+          <button class="carousel-nav next" onclick="nextImage()">
+            <i class="bi bi-chevron-right"></i>
+          </button>
+          <button class="carousel-nav prev" onclick="prevImage()">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+        </div>
+
+        <!-- Venue Info -->
+        <div class="venue-header">
+          <h1 class="venue-name">GOR IFI SUKABIRUS</h1>
+          <button class="favorite-btn">
+            <i class="bi bi-heart"></i>
+          </button>
+        </div>
+
+        <div class="venue-info">
+          <div class="info-item">
+            <span class="info-label">Lokasi :</span>
+            <span>-</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Kategori :</span>
+            <span>-</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Harga :</span>
+            <span>-</span>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="description-section">
+          <h2 class="section-heading">Deskripsi</h2>
+          <p class="description-text">
+            Bla..bla...bla...
+          </p>
+        </div>
+
+        <!-- Facilities -->
+        <div class="facilities-section">
+          <h2 class="section-heading">Fasilitas</h2>
+          <div class="facilities-list">
+            <button class="facility-badge">Toilet</button>
+            <button class="facility-badge">Kamar Ganti</button>
+            <button class="facility-badge">Wifi</button>
+            <button class="facility-badge">Kantin</button>
+          </div>
+        </div>
+
+        <!-- Booking Button -->
+        <div class="booking-section">
+          <button class="btn btn-booking" onclick="window.location.href='booking.html'">
+            Booking Sekarang
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      let currentImage = 1;
+      const totalImages = 2;
+
+      function updateCarousel() {
+        const placeholder = document.getElementById("carouselPlaceholder");
+        placeholder.textContent = `Gambar ${currentImage}`;
+      }
+
+      function nextImage() {
+        currentImage = currentImage >= totalImages ? 1 : currentImage + 1;
+        updateCarousel();
+      }
+
+      function prevImage() {
+        currentImage = currentImage <= 1 ? totalImages : currentImage - 1;
+        updateCarousel();
+      }
+
+      // Favorite button toggle
+      const favoriteBtn = document.querySelector(".favorite-btn");
+      favoriteBtn.addEventListener("click", function () {
+        const icon = this.querySelector("i");
+        if (icon.classList.contains("bi-heart")) {
+          icon.classList.remove("bi-heart");
+          icon.classList.add("bi-heart-fill");
+        } else {
+          icon.classList.remove("bi-heart-fill");
+          icon.classList.add("bi-heart");
+        }
+      });
+    </script>
+  </body>
+</html>
+

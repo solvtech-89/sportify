@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kelola GOR - Sportify Admin</title>
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+    <style>
+      :root {
+        --primary-blue: #2563eb;
+        --light-blue: #3b82f6;
+        --dark-gray: #1f2937;
+        --light-gray: #f3f4f6;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--light-gray);
+        margin: 0;
+        padding: 0;
+      }
+
+      /* Sidebar */
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100vh;
+        width: 250px;
+        background-color: white;
+        box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        overflow-y: auto;
+      }
+
+      .sidebar-header {
+        padding: 1.5rem;
+        border-bottom: 1px solid #e5e7eb;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .sidebar-logo {
+        width: 40px;
+        height: 40px;
+        background-color: var(--primary-blue);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+      }
+
+      .sidebar-brand {
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: var(--primary-blue);
+      }
+
+      .sidebar-menu {
+        padding: 1rem 0;
+      }
+
+      .menu-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem 1.5rem;
+        color: var(--dark-gray);
+        text-decoration: none;
+        transition: all 0.3s;
+        border-left: 3px solid transparent;
+      }
+
+      .menu-item:hover {
+        background-color: var(--light-gray);
+        color: var(--primary-blue);
+      }
+
+      .menu-item.active {
+        background-color: #eff6ff;
+        color: var(--primary-blue);
+        border-left-color: var(--primary-blue);
+        font-weight: 600;
+      }
+
+      .menu-item i {
+        font-size: 1.25rem;
+        width: 24px;
+      }
+
+      /* Main Content */
+      .main-content {
+        margin-left: 250px;
+        min-height: 100vh;
+      }
+
+      /* Top Header */
+      .top-header {
+        background-color: white;
+        padding: 1rem 2rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .user-info {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+      }
+
+      .user-details {
+        text-align: right;
+      }
+
+      .user-name {
+        font-weight: 600;
+        color: var(--dark-gray);
+        margin: 0;
+        font-size: 0.95rem;
+      }
+
+      .user-email {
+        color: #6b7280;
+        margin: 0;
+        font-size: 0.85rem;
+      }
+
+      .btn-logout {
+        background-color: transparent;
+        border: 1px solid #e5e7eb;
+        color: var(--dark-gray);
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s;
+      }
+
+      .btn-logout:hover {
+        background-color: #f3f4f6;
+        border-color: #d1d5db;
+      }
+
+      /* Content Area */
+      .content-area {
+        padding: 2rem;
+      }
+
+      .page-title {
+        font-size: 2rem;
+        font-weight: bold;
+        color: var(--dark-gray);
+        margin-bottom: 0.5rem;
+      }
+
+      .page-subtitle {
+        color: #6b7280;
+        margin-bottom: 2rem;
+      }
+
+      /* Search and Filter */
+      .search-filter-section {
+        background-color: white;
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        margin-bottom: 1.5rem;
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .search-input-wrapper {
+        flex: 1;
+        min-width: 250px;
+        position: relative;
+      }
+
+      .search-input {
+        width: 100%;
+        padding: 0.75rem 1rem 0.75rem 2.5rem;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        font-size: 0.95rem;
+      }
+
+      .search-icon {
+        position: absolute;
+        left: 0.75rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #9ca3af;
+      }
+
+      .filter-select {
+        padding: 0.75rem 1rem;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        font-size: 0.95rem;
+        min-width: 150px;
+      }
+
+      .result-count {
+        padding: 0.75rem 1rem;
+        background-color: var(--light-gray);
+        border-radius: 0.5rem;
+        color: var(--dark-gray);
+        font-weight: 500;
+      }
+
+      .btn-add {
+        background-color: var(--primary-blue);
+        color: white;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: background-color 0.3s;
+      }
+
+      .btn-add:hover {
+        background-color: var(--light-blue);
+        color: white;
+      }
+
+      /* Table */
+      .table-container {
+        background-color: white;
+        border-radius: 0.75rem;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .table {
+        margin: 0;
+      }
+
+      .table thead {
+        background-color: var(--light-gray);
+      }
+
+      .table thead th {
+        font-weight: 600;
+        color: var(--dark-gray);
+        border: none;
+        padding: 1rem;
+      }
+
+      .table tbody td {
+        padding: 1rem;
+        vertical-align: middle;
+        border-top: 1px solid #e5e7eb;
+      }
+
+      .table-image {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 0.5rem;
+        background-color: #e5e7eb;
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .btn-action {
+        background: none;
+        border: none;
+        padding: 0.5rem;
+        cursor: pointer;
+        color: var(--dark-gray);
+        transition: color 0.3s;
+      }
+
+      .btn-action:hover {
+        color: var(--primary-blue);
+      }
+
+      .btn-action.view {
+        color: var(--primary-blue);
+      }
+
+      .btn-action.edit {
+        color: #f59e0b;
+      }
+
+      .btn-action.delete {
+        color: #ef4444;
+      }
+
+      @media (max-width: 768px) {
+        .sidebar {
+          transform: translateX(-100%);
+          transition: transform 0.3s;
+        }
+
+        .sidebar.show {
+          transform: translateX(0);
+        }
+
+        .main-content {
+          margin-left: 0;
+        }
+
+        .search-filter-section {
+          flex-direction: column;
+        }
+
+        .search-input-wrapper {
+          width: 100%;
+        }
+
+        .table {
+          font-size: 0.85rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <i class="bi bi-play-fill"></i>
+        </div>
+        <div class="sidebar-brand">Sportify</div>
+      </div>
+      <nav class="sidebar-menu">
+        <a href="admin-dashboard.html" class="menu-item">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+        <a href="admin-gor.html" class="menu-item active">
+          <i class="bi bi-folder"></i>
+          <span>Kelola Gor</span>
+        </a>
+        <a href="admin-user.html" class="menu-item">
+          <i class="bi bi-person-gear"></i>
+          <span>Kelola User</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Top Header -->
+      <div class="top-header">
+        <div></div>
+        <div class="user-info">
+          <div class="user-details">
+            <p class="user-name">Admin User</p>
+            <p class="user-email">admin1@gmail.com</p>
+          </div>
+          <button class="btn btn-logout" onclick="window.location.href='index.html'">
+            Keluar
+            <i class="bi bi-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Content Area -->
+      <div class="content-area">
+        <h1 class="page-title">Kelola GOR</h1>
+        <p class="page-subtitle">Manajemen data gelanggang olahraga</p>
+
+        <!-- Search and Filter -->
+        <div class="search-filter-section">
+          <div class="search-input-wrapper">
+            <i class="bi bi-search search-icon"></i>
+            <input
+              type="text"
+              class="search-input"
+              placeholder="Cari nama atau lokasi GOR"
+            />
+          </div>
+          <select class="filter-select">
+            <option>Kategori</option>
+            <option>Futsal</option>
+            <option>Basket</option>
+            <option>Badminton</option>
+          </select>
+          <div class="result-count">3 Gor ditemukan</div>
+          <button class="btn btn-add" data-bs-toggle="modal" data-bs-target="#inputGorModal">
+            <i class="bi bi-plus"></i>
+            Tambahkan GOR
+          </button>
+        </div>
+
+        <!-- Table -->
+        <div class="table-container">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Foto</th>
+                <th>Nama GOR</th>
+                <th>Lokasi</th>
+                <th>Kategori</th>
+                <th>Harga</th>
+                <th>Deskripsi</th>
+                <th>Fasilitas</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>
+                  <img
+                    src="https://via.placeholder.com/60"
+                    alt="GOR"
+                    class="table-image"
+                  />
+                </td>
+                <td>Gor IFI SUKABIRUS</td>
+                <td>
+                  Jalan Sukabirus No.7, Citeureup, Kecamatan Dayeuhkolot,
+                  Kabupaten Bandung, Jawa Barat 40257
+                </td>
+                <td>
+                  <select class="form-select form-select-sm">
+                    <option>Kategori</option>
+                    <option>Futsal</option>
+                    <option>Basket</option>
+                    <option>Badminton</option>
+                  </select>
+                </td>
+                <td>Bla bla bla</td>
+                <td>Bla bla bla</td>
+                <td>Bla bla bla</td>
+                <td>
+                  <div class="action-buttons">
+                    <button
+                      class="btn-action view"
+                      data-bs-toggle="modal"
+                      data-bs-target="#detailGorModal"
+                    >
+                      <i class="bi bi-eye"></i>
+                    </button>
+                    <button
+                      class="btn-action edit"
+                      data-bs-toggle="modal"
+                      data-bs-target="#editGorModal"
+                    >
+                      <i class="bi bi-pencil"></i>
+                    </button>
+                    <button
+                      class="btn-action delete"
+                      data-bs-toggle="modal"
+                      data-bs-target="#deleteGorModal"
+                    >
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>
+                  <img
+                    src="https://via.placeholder.com/60"
+                    alt="GOR"
+                    class="table-image"
+                  />
+                </td>
+                <td>Gor IFI SUKABIRUS</td>
+                <td>Jalan Sukabirus No.7</td>
+                <td>
+                  <select class="form-select form-select-sm">
+                    <option>Kategori</option>
+                    <option>Futsal</option>
+                    <option>Basket</option>
+                    <option>Badminton</option>
+                  </select>
+                </td>
+                <td>Bla bla bla</td>
+                <td>Bla bla bla</td>
+                <td>Bla bla bla</td>
+                <td>
+                  <div class="action-buttons">
+                    <button
+                      class="btn-action view"
+                      data-bs-toggle="modal"
+                      data-bs-target="#detailGorModal"
+                    >
+                      <i class="bi bi-eye"></i>
+                    </button>
+                    <button
+                      class="btn-action edit"
+                      data-bs-toggle="modal"
+                      data-bs-target="#editGorModal"
+                    >
+                      <i class="bi bi-pencil"></i>
+                    </button>
+                    <button
+                      class="btn-action delete"
+                      data-bs-toggle="modal"
+                      data-bs-target="#deleteGorModal"
+                    >
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>
+                  <img
+                    src="https://via.placeholder.com/60"
+                    alt="GOR"
+                    class="table-image"
+                  />
+                </td>
+                <td>Gor IFI SUKABIRUS</td>
+                <td>Jalan Sukabirus No.7</td>
+                <td>
+                  <select class="form-select form-select-sm">
+                    <option>Kategori</option>
+                    <option>Futsal</option>
+                    <option>Basket</option>
+                    <option>Badminton</option>
+                  </select>
+                </td>
+                <td>Bla bla bla</td>
+                <td>Bla bla bla</td>
+                <td>Bla bla bla</td>
+                <td>
+                  <div class="action-buttons">
+                    <button
+                      class="btn-action view"
+                      data-bs-toggle="modal"
+                      data-bs-target="#detailGorModal"
+                    >
+                      <i class="bi bi-eye"></i>
+                    </button>
+                    <button
+                      class="btn-action edit"
+                      data-bs-toggle="modal"
+                      data-bs-target="#editGorModal"
+                    >
+                      <i class="bi bi-pencil"></i>
+                    </button>
+                    <button
+                      class="btn-action delete"
+                      data-bs-toggle="modal"
+                      data-bs-target="#deleteGorModal"
+                    >
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Detail GOR -->
+    <div
+      class="modal fade"
+      id="detailGorModal"
+      tabindex="-1"
+      aria-labelledby="detailGorModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="detailGorModalLabel">Detail GOR</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="text-center mb-3">
+              <img
+                src="https://via.placeholder.com/200"
+                alt="GOR"
+                class="img-fluid rounded"
+                style="max-height: 200px; object-fit: cover"
+              />
+            </div>
+            <div class="mb-2">
+              <strong>Nama GOR:</strong> Gor IFI SUKABIRUS
+            </div>
+            <div class="mb-2">
+              <strong>Lokasi GOR:</strong> Bla-bla
+            </div>
+            <div class="mb-2">
+              <strong>Kategori:</strong> Bla-bla
+            </div>
+            <div class="mb-2">
+              <strong>Harga:</strong> Bla-bla
+            </div>
+            <div class="mb-2">
+              <strong>Deskripsi:</strong> Bla-bla
+            </div>
+            <div class="mb-2">
+              <strong>Fasilitas:</strong> Bla-bla
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-bs-dismiss="modal">
+              Tutup
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Edit GOR -->
+    <div
+      class="modal fade"
+      id="editGorModal"
+      tabindex="-1"
+      aria-labelledby="editGorModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editGorModalLabel">Edit GOR</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <!-- Image Upload -->
+            <div class="mb-3">
+              <label class="form-label">Foto GOR</label>
+              <div class="d-flex gap-2">
+                <div class="position-relative">
+                  <img
+                    src="https://via.placeholder.com/100"
+                    alt="GOR"
+                    class="img-thumbnail"
+                    style="width: 100px; height: 100px; object-fit: cover"
+                  />
+                  <button
+                    class="btn btn-sm btn-danger position-absolute top-0 end-0"
+                    style="transform: translate(50%, -50%)"
+                  >
+                    <i class="bi bi-x"></i>
+                  </button>
+                </div>
+                <div class="border border-dashed rounded d-flex align-items-center justify-content-center"
+                  style="width: 100px; height: 100px">
+                  <i class="bi bi-plus fs-3 text-muted"></i>
+                </div>
+                <div class="border border-dashed rounded d-flex align-items-center justify-content-center"
+                  style="width: 100px; height: 100px">
+                  <i class="bi bi-plus fs-3 text-muted"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="editNamaGor" class="form-label">Nama GOR</label>
+              <input
+                type="text"
+                class="form-control"
+                id="editNamaGor"
+                value="GOR IFI"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="editLokasi" class="form-label">Lokasi</label>
+              <input
+                type="text"
+                class="form-control"
+                id="editLokasi"
+                value="GOR IFI"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="editKategori" class="form-label">Kategori</label>
+              <select class="form-select" id="editKategori">
+                <option>Pilih kategori</option>
+                <option>Futsal</option>
+                <option>Basket</option>
+                <option>Badminton</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="editHarga" class="form-label">Harga</label>
+              <input
+                type="text"
+                class="form-control"
+                id="editHarga"
+                value="Bla-bla"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="editDeskripsi" class="form-label">Deskripsi</label>
+              <textarea
+                class="form-control"
+                id="editDeskripsi"
+                rows="3"
+              >Bla-bla</textarea>
+            </div>
+            <div class="mb-3">
+              <label for="editFasilitas" class="form-label">Fasilitas</label>
+              <input
+                type="text"
+                class="form-control"
+                id="editFasilitas"
+                value="Bla-bla"
+              />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+              Batal
+            </button>
+            <button type="button" class="btn btn-success">Update</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Input GOR -->
+    <div
+      class="modal fade"
+      id="inputGorModal"
+      tabindex="-1"
+      aria-labelledby="inputGorModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="inputGorModalLabel">Input GOR</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <!-- Image Upload -->
+            <div class="mb-3">
+              <label class="form-label">Foto GOR</label>
+              <div class="d-flex gap-2">
+                <div class="position-relative">
+                  <img
+                    src="https://via.placeholder.com/100"
+                    alt="GOR"
+                    class="img-thumbnail"
+                    style="width: 100px; height: 100px; object-fit: cover"
+                  />
+                  <button
+                    class="btn btn-sm btn-danger position-absolute top-0 end-0"
+                    style="transform: translate(50%, -50%)"
+                  >
+                    <i class="bi bi-x"></i>
+                  </button>
+                </div>
+                <div class="border border-dashed rounded d-flex align-items-center justify-content-center"
+                  style="width: 100px; height: 100px">
+                  <i class="bi bi-plus fs-3 text-muted"></i>
+                </div>
+                <div class="border border-dashed rounded d-flex align-items-center justify-content-center"
+                  style="width: 100px; height: 100px">
+                  <i class="bi bi-plus fs-3 text-muted"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="inputNamaGor" class="form-label">Nama GOR</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputNamaGor"
+                value="GOR IFI"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="inputLokasi" class="form-label">Lokasi</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputLokasi"
+                value="GOR IFI"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="inputKategori" class="form-label">Kategori</label>
+              <select class="form-select" id="inputKategori">
+                <option>Pilih kategori</option>
+                <option>Futsal</option>
+                <option>Basket</option>
+                <option>Badminton</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="inputHarga" class="form-label">Harga</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputHarga"
+                value="Bla-bla"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="inputDeskripsi" class="form-label">Deskripsi</label>
+              <textarea
+                class="form-control"
+                id="inputDeskripsi"
+                rows="3"
+              >Bla-bla</textarea>
+            </div>
+            <div class="mb-3">
+              <label for="inputFasilitas" class="form-label">Fasilitas</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputFasilitas"
+                value="Bla-bla"
+              />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+              Batal
+            </button>
+            <button type="button" class="btn btn-success">Simpan</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Delete Confirmation -->
+    <div
+      class="modal fade"
+      id="deleteGorModal"
+      tabindex="-1"
+      aria-labelledby="deleteGorModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body text-center py-4">
+            <p class="mb-0">Yakin ingin menghapus GOR ini?</p>
+          </div>
+          <div class="modal-footer justify-content-end">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+              Cancel
+            </button>
+            <button type="button" class="btn btn-success">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
+
