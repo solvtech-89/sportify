@@ -445,6 +445,15 @@ body {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   position: relative;
   z-index: 2;
+  margin: 0 auto;
+}
+
+.register-page .register-container {
+  max-width: 550px;
+}
+
+.login-page .login-container form {
+  margin-top: 0;
 }
 
 /* Login Modal */
@@ -518,6 +527,7 @@ body {
   font-weight: bold;
   font-size: 1.8rem;
   margin-bottom: 0.5rem;
+  margin-top: 0;
 }
 
 .login-instruction {
@@ -525,25 +535,29 @@ body {
   margin-bottom: 2rem;
   font-size: 0.95rem;
   line-height: 1.6;
+  margin-top: 0;
 }
 
 .form-label {
   color: var(--dark-gray);
   font-weight: 500;
   margin-bottom: 0.5rem;
+  display: block;
 }
 
 .form-control {
-  border: 1px solid #93c5fd;
+  border: 1px solid #e5e7eb;
   border-radius: 0.5rem;
   padding: 0.75rem 1rem;
   font-size: 0.95rem;
   transition: border-color 0.3s, box-shadow 0.3s;
+  width: 100%;
 }
 
 .form-control:focus {
   border-color: var(--primary-blue);
   box-shadow: 0 0 0 0.2rem rgba(29, 131, 187, 0.25);
+  outline: none;
 }
 
 .password-label-container {
@@ -551,6 +565,7 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 0.5rem;
+  width: 100%;
 }
 
 .forgot-password {
@@ -574,6 +589,8 @@ body {
   width: 100%;
   font-size: 1rem;
   transition: background-color 0.3s;
+  margin-top: 0.5rem;
+  cursor: pointer;
 }
 
 .btn-login-modal:hover {
@@ -586,6 +603,7 @@ body {
   margin-top: 1.5rem;
   color: var(--dark-gray);
   font-size: 0.95rem;
+  line-height: 1.5;
 }
 
 .register-link {
@@ -804,16 +822,24 @@ body {
   margin-bottom: 2rem;
 }
 
+#profileDetailPage .profile-card {
+  margin-bottom: 1.5rem;
+}
+
 .profile-picture-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   margin-right: 2rem;
+}
+
+#profileDetailPage .profile-picture-container {
+  align-items: center;
 }
 
 .profile-picture {
   width: 200px;
-  height: 250px;
+  height: 200px;
   object-fit: cover;
   border-radius: 0.5rem;
   margin-bottom: 1rem;
@@ -891,7 +917,11 @@ body {
   font-weight: 600;
   font-size: 1.1rem;
   width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  display: block;
   transition: background-color 0.3s;
+  cursor: pointer;
 }
 
 .btn-save-data:hover {
@@ -908,7 +938,11 @@ body {
   font-weight: 600;
   font-size: 1.1rem;
   width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  display: block;
   transition: background-color 0.3s;
+  cursor: pointer;
 }
 
 .btn-ubah-data:hover {
@@ -924,6 +958,11 @@ body {
 
 .profile-form-left {
   flex: 0 0 250px;
+}
+
+.profile-form-left .profile-picture-container {
+  align-items: center;
+  margin-right: 0;
 }
 
 .profile-form-right {

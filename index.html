@@ -352,7 +352,11 @@
               </div>
             </div>
           </div>
-          <button class="btn btn-ubah-data" id="btnUbahData">Ubah Data</button>
+          <div style="max-width: 900px; margin: 0 auto">
+            <button class="btn btn-ubah-data" id="btnUbahData">
+              Ubah Data
+            </button>
+          </div>
         </div>
       </div>
     </section>
@@ -434,9 +438,11 @@
               </div>
             </div>
           </div>
-          <button class="btn btn-save-data" id="btnSaveData">
-            Simpan Data
-          </button>
+          <div style="max-width: 900px; margin: 0 auto">
+            <button class="btn btn-save-data" id="btnSaveData">
+              Simpan Data
+            </button>
+          </div>
         </div>
       </div>
     </section>
@@ -634,6 +640,27 @@
             showHomePage();
           });
         }
+
+        // Handle hash in URL (for profile page)
+        if (window.location.hash === "#profile") {
+          // Show profile dropdown first, then show profile page
+          showProfileDropdown();
+          showProfileDetailPage();
+        }
+
+        // Listen for hash changes
+        window.addEventListener("hashchange", function () {
+          if (window.location.hash === "#profile") {
+            // Show profile dropdown first, then show profile page
+            showProfileDropdown();
+            showProfileDetailPage();
+          } else if (
+            window.location.hash === "" ||
+            window.location.hash === "#beranda"
+          ) {
+            showHomePage();
+          }
+        });
       });
 
       // Function to show profile dropdown
@@ -666,6 +693,9 @@
 
       // Function to show profile detail page
       function showProfileDetailPage() {
+        // Show profile dropdown in header (user is logged in)
+        showProfileDropdown();
+
         // Hide all pages
         hideAllPages();
 
@@ -677,11 +707,18 @@
         if (profileDetailPage) {
           profileDetailPage.classList.remove("hidden");
           window.scrollTo(0, 0);
+          // Update URL hash
+          if (window.location.hash !== "#profile") {
+            window.history.pushState(null, null, "#profile");
+          }
         }
       }
 
       // Function to show profile edit page
       function showProfileEditPage() {
+        // Show profile dropdown in header (user is logged in)
+        showProfileDropdown();
+
         // Hide all pages
         hideAllPages();
 
@@ -706,6 +743,13 @@
 
         // Scroll to top
         window.scrollTo(0, 0);
+        // Update URL hash
+        if (
+          window.location.hash !== "" &&
+          window.location.hash !== "#beranda"
+        ) {
+          window.history.pushState(null, null, "#beranda");
+        }
       }
 
       // Function to hide all pages

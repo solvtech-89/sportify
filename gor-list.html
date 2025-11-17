@@ -190,6 +190,12 @@
         gap: 0.5rem;
       }
 
+      .filter-icon {
+        width: 1.25rem;
+        height: 1.25rem;
+        object-fit: contain;
+      }
+
       .filter-btn:hover {
         border-color: var(--primary-blue);
         color: var(--primary-blue);
@@ -244,13 +250,14 @@
         position: absolute;
         top: 10px;
         right: 10px;
-        color: #ef4444;
-        font-size: 1.5rem;
+        width: 2rem;
+        height: 2rem;
         cursor: pointer;
         background-color: white;
         border-radius: 50%;
         padding: 0.5rem;
         transition: transform 0.2s;
+        object-fit: contain;
       }
 
       .favorite-icon:hover {
@@ -340,7 +347,7 @@
                   <i class="bi bi-chevron-down"></i>
                 </div>
                 <div class="profile-dropdown-menu" id="profileDropdownMenu">
-                  <a href="profile-detail.html" class="profile-dropdown-item">
+                  <a href="index.html#profile" class="profile-dropdown-item">
                     <i class="bi bi-person"></i> Profil Saya
                   </a>
                   <a href="index.html" class="profile-dropdown-item">
@@ -380,13 +387,24 @@
         <!-- Filter Buttons -->
         <div class="filter-container">
           <button class="filter-btn">
-            <i class="bi bi-circle-fill"></i> Futsal
+            <img
+              src="images/soccer-ball.png"
+              alt="Futsal"
+              class="filter-icon"
+            />
+            Futsal
           </button>
           <button class="filter-btn">
-            <i class="bi bi-circle-fill"></i> Basket
+            <img src="images/basketball.png" alt="Basket" class="filter-icon" />
+            Basket
           </button>
           <button class="filter-btn">
-            <i class="bi bi-circle-fill"></i> Badminton
+            <img
+              src="images/badminton.png"
+              alt="Badminton"
+              class="filter-icon"
+            />
+            Badminton
           </button>
         </div>
 
@@ -397,7 +415,11 @@
             <div class="gor-card">
               <div class="gor-image">
                 <i class="bi bi-image"></i>
-                <i class="bi bi-heart-fill favorite-icon"></i>
+                <img
+                  src="images/love-icon.png"
+                  alt="Favorite"
+                  class="favorite-icon"
+                />
               </div>
               <div class="gor-card-body">
                 <h5>GOR IFI SUKABIRUS</h5>
@@ -407,7 +429,10 @@
                 <div class="gor-info">
                   <strong>Harga :</strong> <span>-</span>
                 </div>
-                <button class="btn btn-view-detail" onclick="window.location.href='gor-detail.html'">
+                <button
+                  class="btn btn-view-detail"
+                  onclick="window.location.href='gor-detail.html'"
+                >
                   Lihat Detail
                 </button>
               </div>
@@ -417,7 +442,11 @@
             <div class="gor-card">
               <div class="gor-image">
                 <i class="bi bi-image"></i>
-                <i class="bi bi-heart-fill favorite-icon"></i>
+                <img
+                  src="images/love-icon.png"
+                  alt="Favorite"
+                  class="favorite-icon"
+                />
               </div>
               <div class="gor-card-body">
                 <h5>GOR IFI SUKABIRUS</h5>
@@ -427,7 +456,10 @@
                 <div class="gor-info">
                   <strong>Harga :</strong> <span>-</span>
                 </div>
-                <button class="btn btn-view-detail" onclick="window.location.href='gor-detail.html'">
+                <button
+                  class="btn btn-view-detail"
+                  onclick="window.location.href='gor-detail.html'"
+                >
                   Lihat Detail
                 </button>
               </div>
@@ -437,7 +469,11 @@
             <div class="gor-card">
               <div class="gor-image">
                 <i class="bi bi-image"></i>
-                <i class="bi bi-heart-fill favorite-icon"></i>
+                <img
+                  src="images/love-icon.png"
+                  alt="Favorite"
+                  class="favorite-icon"
+                />
               </div>
               <div class="gor-card-body">
                 <h5>GOR IFI SUKABIRUS</h5>
@@ -447,7 +483,10 @@
                 <div class="gor-info">
                   <strong>Harga :</strong> <span>-</span>
                 </div>
-                <button class="btn btn-view-detail" onclick="window.location.href='gor-detail.html'">
+                <button
+                  class="btn btn-view-detail"
+                  onclick="window.location.href='gor-detail.html'"
+                >
                   Lihat Detail
                 </button>
               </div>
@@ -457,7 +496,11 @@
             <div class="gor-card">
               <div class="gor-image">
                 <i class="bi bi-image"></i>
-                <i class="bi bi-heart-fill favorite-icon"></i>
+                <img
+                  src="images/love-icon.png"
+                  alt="Favorite"
+                  class="favorite-icon"
+                />
               </div>
               <div class="gor-card-body">
                 <h5>GOR IFI SUKABIRUS</h5>
@@ -467,7 +510,10 @@
                 <div class="gor-info">
                   <strong>Harga :</strong> <span>-</span>
                 </div>
-                <button class="btn btn-view-detail" onclick="window.location.href='gor-detail.html'">
+                <button
+                  class="btn btn-view-detail"
+                  onclick="window.location.href='gor-detail.html'"
+                >
                   Lihat Detail
                 </button>
               </div>
@@ -484,7 +530,9 @@
       const profileDropdownToggle = document.getElementById(
         "profileDropdownToggle"
       );
-      const profileDropdownMenu = document.getElementById("profileDropdownMenu");
+      const profileDropdownMenu = document.getElementById(
+        "profileDropdownMenu"
+      );
 
       if (profileDropdownToggle && profileDropdownMenu) {
         profileDropdownToggle.addEventListener("click", function (e) {
@@ -514,4 +562,3 @@
     </script>
   </body>
 </html>
-
