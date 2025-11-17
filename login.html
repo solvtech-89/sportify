@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Sportify</title>
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="login-page">
+      <div class="login-container">
+        <a href="index.html" class="back-to-home">
+          <i class="bi bi-chevron-left"></i>
+          Kembali ke Beranda
+        </a>
+
+        <!-- Login Mode Toggle -->
+        <div class="login-mode-toggle">
+          <div class="mode-option active" data-mode="user" id="userMode">
+            <i class="bi bi-person"></i> User
+          </div>
+          <div class="mode-option" data-mode="admin" id="adminMode">
+            <i class="bi bi-shield-lock"></i> Admin
+          </div>
+        </div>
+
+        <h2 class="login-title" id="loginTitle">
+          Selamat Datang di Sportify
+        </h2>
+        <p class="login-instruction" id="loginInstruction">
+          Silakan masukkan email dan kata sandi untuk mulai menggunakan
+          layanan Sportify
+        </p>
+
+        <form id="loginForm">
+          <div class="mb-3">
+            <label for="email" class="form-label" id="emailLabel">
+              Email
+            </label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              placeholder="Masukan email"
+              required
+            />
+          </div>
+
+          <div class="mb-3">
+            <div class="password-label-container">
+              <label for="password" class="form-label">Kata Sandi</label>
+              <a href="#" class="forgot-password" id="forgotPasswordLink">
+                Lupa Kata Sandi?
+              </a>
+            </div>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              placeholder="Masukan kata sandi"
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-login-modal"
+            id="loginButton"
+          >
+            Masuk
+          </button>
+
+          <div class="register-link-container" id="registerLinkContainer">
+            Belum Punya Akun?
+            <a href="register.html" class="register-link">Daftar</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Login Mode Toggle
+      let currentLoginMode = "user";
+      const userModeBtn = document.getElementById("userMode");
+      const adminModeBtn = document.getElementById("adminMode");
+      const loginTitle = document.getElementById("loginTitle");
+      const loginInstruction = document.getElementById("loginInstruction");
+      const emailLabel = document.getElementById("emailLabel");
+      const forgotPasswordLink = document.getElementById("forgotPasswordLink");
+      const registerLinkContainer = document.getElementById(
+        "registerLinkContainer"
+      );
+      const loginButton = document.getElementById("loginButton");
+      const loginForm = document.getElementById("loginForm");
+
+      function switchLoginMode(mode) {
+        currentLoginMode = mode;
+
+        // Update toggle buttons
+        if (mode === "user") {
+          userModeBtn.classList.add("active");
+          adminModeBtn.classList.remove("active", "admin-active");
+          loginForm.classList.remove("admin-mode");
+
+          // Update content for user mode
+          loginTitle.innerHTML = "Selamat Datang di Sportify";
+          loginInstruction.textContent =
+            "Silakan masukkan email dan kata sandi untuk mulai menggunakan layanan Sportify";
+          emailLabel.textContent = "Email";
+          document.getElementById("email").placeholder = "Masukan email";
+          forgotPasswordLink.style.display = "";
+          registerLinkContainer.style.display = "";
+          loginButton.textContent = "Masuk";
+        } else {
+          userModeBtn.classList.remove("active");
+          adminModeBtn.classList.add("active", "admin-active");
+          loginForm.classList.add("admin-mode");
+
+          // Update content for admin mode
+          loginTitle.innerHTML =
+            '<i class="bi bi-shield-check"></i> Login Admin<span class="admin-badge"><i class="bi bi-shield-lock-fill"></i> Admin Access</span>';
+          loginInstruction.textContent =
+            "Silakan masukkan kredensial admin untuk mengakses dashboard";
+          emailLabel.textContent = "Email Admin";
+          document.getElementById("email").placeholder =
+            "Masukan email admin";
+          forgotPasswordLink.style.display = "none";
+          registerLinkContainer.style.display = "none";
+          loginButton.textContent = "Masuk sebagai Admin";
+        }
+      }
+
+      if (userModeBtn && adminModeBtn) {
+        userModeBtn.addEventListener("click", function () {
+          switchLoginMode("user");
+        });
+
+        adminModeBtn.addEventListener("click", function () {
+          switchLoginMode("admin");
+        });
+      }
+
+      // Handle login form submission
+      if (loginForm) {
+        loginForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          if (currentLoginMode === "admin") {
+            // Redirect to admin dashboard
+            window.location.href = "admin-dashboard.html";
+          } else {
+            // Redirect to user gor-list page
+            window.location.href = "gor-list.html";
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
+
